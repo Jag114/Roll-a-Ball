@@ -34,7 +34,8 @@ public class Collectible : MonoBehaviour
 
     private void OnTriggerEnter(Collider otherObject)
     {
-        otherObject.gameObject.GetComponent<MovementController>().score += 1;
+        //otherObject.gameObject.GetComponent<MovementController>().score += 1;
+        otherObject.gameObject.GetComponent<MovementController>().CollectScore();
         Debug.LogWarning(otherObject.gameObject.GetComponent<MovementController>().score);
 
         Vector3 ballPos = otherObject.gameObject.transform.position;
