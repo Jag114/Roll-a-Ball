@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MenuUtilities : MonoBehaviour
+public class OLDMenuUtilities : MonoBehaviour
 {
     public GameObject level_select_panel;
     GameObject options_panel;
@@ -27,6 +27,11 @@ public class MenuUtilities : MonoBehaviour
     public void ShowOptions(bool isActive)
     {
         options_panel.SetActive(isActive);
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene(0, LoadSceneMode.Single);
     }
 
     public void ExitGame()

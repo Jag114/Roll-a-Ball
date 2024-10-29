@@ -3,3 +3,21 @@
 -trampolines
 -slow terrain
 -boosts
+
+playercontroller
+	movement revamp
+	speed
+	drag
+	points
+	time
+speedmodifiers
+	speed up
+	drag up
+collectiblecontroller
+	sound
+	movement
+	respawns
+menuutils
+	same?
+cameracontroller
+	follow player

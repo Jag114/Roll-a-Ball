@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MovementController : MonoBehaviour
+public class OLDMovementController : MonoBehaviour
 {
     private Rigidbody m_rb;
+    private bool finished = false;
     float m_thrust = 4f;
     public int score;
     private bool applyForce;
@@ -13,6 +15,7 @@ public class MovementController : MonoBehaviour
     public Text finish_text;
     public Text time_text;
     private float game_time;
+    public float speed = 1f;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +24,7 @@ public class MovementController : MonoBehaviour
         score = 0;
         applyForce = false;
         game_time = 0;
+        Time.timeScale = 1;
     }
 
     // Update is called once per frame
@@ -29,49 +33,38 @@ public class MovementController : MonoBehaviour
         game_time += Time.deltaTime;
         time_text.text = "Time: " + game_time;
 
-        if (Input.GetKey(KeyCode.W))
+        if (finished)
         {
-            Move("W");
+            Time.timeScale = 0;
+            Debug.Log("FINISHED");
+            if (Input.GetKey(KeyCode.Space))
+            {
+                int index = SceneManager.GetActiveScene().buildIndex;
+                SceneManager.LoadScene(++index, LoadSceneMode.Single);
+            }
         }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            Move("S");
-        }
-        else if (Input.GetKey(KeyCode.A))
-        {
-            Move("A");
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            Move("D");
-        }
-    }
-
-    void Move(string code)
-    {
-        
     }
 
     private void FixedUpdate()
     {
         if (Input.GetKey(KeyCode.W))
         {
-            m_rb.AddForce(0, 0, 1 * m_thrust);
+            m_rb.AddForce(0, 0, 1 * m_thrust * speed);
             //Debug.Log("W");
         }
         else if (Input.GetKey(KeyCode.S))
         {
-            m_rb.AddForce(0, 0, -1 * m_thrust);
+            m_rb.AddForce(0, 0, -1 * m_thrust * speed);
             //Debug.Log("S");
         }
         else if (Input.GetKey(KeyCode.A))
         {
-            m_rb.AddForce(-1 * m_thrust, 0, 0);
+            m_rb.AddForce(-1 * m_thrust * speed, 0, 0);
             //Debug.Log("A");
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            m_rb.AddForce(1 * m_thrust, 0, 0);
+            m_rb.AddForce(1 * m_thrust * speed, 0, 0);
             //Debug.Log("D");
         }
     }
@@ -83,10 +76,10 @@ public class MovementController : MonoBehaviour
         print(score);
         if(score >= 5)
         {
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
             finish_text.gameObject.SetActive(true);
+            finished = true;
         }
-        
-    } 
+    }
 }
 

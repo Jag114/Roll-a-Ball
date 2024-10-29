@@ -1,20 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
-public class Collectible : MonoBehaviour
+public class CollectibleController : MonoBehaviour
 {
     private Rigidbody m_rb;
-    int direction;
-    float timeToBop;
-    
+    private int direction;
+    private float timeToBop;
+    private AudioSource sound;
+
     // Start is called before the first frame update
     void Start()
     {
         m_rb = GetComponent<Rigidbody>();
         direction = 1;
         timeToBop = 0;
+        sound = GameObject.Find("SoundEffect").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -34,16 +34,19 @@ public class Collectible : MonoBehaviour
 
     private void OnTriggerEnter(Collider otherObject)
     {
-        //otherObject.gameObject.GetComponent<MovementController>().score += 1;
-        otherObject.gameObject.GetComponent<MovementController>().CollectScore();
-        Debug.LogWarning(otherObject.gameObject.GetComponent<MovementController>().score);
+        otherObject.gameObject.GetComponent<PlayerController>().IncrementScore();
+        sound.Play();
 
-        Vector3 ballPos = otherObject.gameObject.transform.position;
+        Respawn(otherObject.gameObject.transform.position);
+    }
+
+    private void Respawn(Vector3 ballPos)
+    {
         float x = Random.Range(-8, 8);
         float z = Random.Range(-8, 8);
         while (x == ballPos.x)
         {
-            x = Random.Range(-8,8);
+            x = Random.Range(-8, 8);
         }
         while (z == ballPos.z)
         {
