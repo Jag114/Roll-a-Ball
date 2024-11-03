@@ -11,7 +11,7 @@ public class OLDBooster : MonoBehaviour
     {
         Debug.Log("Speed changed to " + speed);
         Debug.Log("Drag changed to " + drag);
-        OLDMovementController player = collision.gameObject.GetComponent<OLDMovementController>();
+        PlayerController player = collision.gameObject.GetComponent<PlayerController>();
         player.speed = speed;
         player.GetComponent<Rigidbody>().linearDamping = drag;
     }

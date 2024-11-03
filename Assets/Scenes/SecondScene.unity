@@ -374,7 +374,7 @@ Transform:
   m_GameObject: {fileID: 315556193}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.0001, z: 18.05}
+  m_LocalPosition: {x: 0, y: 0.001, z: 18.05}
   m_LocalScale: {x: 0.5, y: 1, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -392,7 +392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b9f3768aca5ec442963e60ab5fc09d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  speed: 16
   drag: 0
 --- !u!1 &452689341
 GameObject:
@@ -544,6 +544,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6941678274396691911, guid: 90fbf5dc2c1da0d4baae784fe8a77da6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6941678274396691911, guid: 90fbf5dc2c1da0d4baae784fe8a77da6, type: 3}
       propertyPath: time_text
       value: 
       objectReference: {fileID: 184215133}
@@ -595,10 +599,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6941678274396691911, guid: 90fbf5dc2c1da0d4baae784fe8a77da6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6623372076477334510, guid: 90fbf5dc2c1da0d4baae784fe8a77da6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1712341442}
   m_SourcePrefab: {fileID: 100100000, guid: 90fbf5dc2c1da0d4baae784fe8a77da6, type: 3}
 --- !u!1 &664234908
 GameObject:
@@ -1148,7 +1156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b9f3768aca5ec442963e60ab5fc09d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 4
   drag: 0
 --- !u!1 &1134627672
 GameObject:
@@ -1458,7 +1466,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: YOU WON!
+  m_Text: Level Complete!
 --- !u!222 &1376718625
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2098,6 +2106,21 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6623372076477334510, guid: 90fbf5dc2c1da0d4baae784fe8a77da6, type: 3}
   m_PrefabInstance: {fileID: 469068219}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1712341442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1712341435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aec5ff39c159d994e9ebd93ecfc1992b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score_threshold: 0
+  speed: 4
+  drag: 0
 --- !u!1 &1727501875
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,15 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     private bool finished = false;
-    private float m_thrust = 4f;
     private int score = 0;
     private Rigidbody rb = null;
-    private Queue<Vector3> movementVectorQueue;
+    private Vector3 movementVector = Vector3.zero;
 
     public int score_threshold = 0;
     public float speed = 1f;
@@ -30,39 +30,24 @@ public class PlayerController : MonoBehaviour
     {
         Time.timeScale = 1;
         rb = GetComponent<Rigidbody>();
-        movementVectorQueue = new Queue<Vector3>();
     }
 
     void Update()
     {
-        GetInput();
         CheckFinish();
+        GetInput();
     }
 
     private void FixedUpdate()
     {
-        rb.AddForce(movementVectorQueue.Dequeue());
+        rb.AddForce(movementVector * speed);
     }
 
-    private void GetInput()
+    private void GetInput() 
     {
-        //axis?
-        if (Input.GetKey(KeyCode.W))
-        {
-            movementVectorQueue.Enqueue(new Vector3(0, 0, 1 * m_thrust * speed));
-        }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            movementVectorQueue.Enqueue(new Vector3(0, 0, -1 * m_thrust * speed));
-        }
-        else if (Input.GetKey(KeyCode.A))
-        {
-            movementVectorQueue.Enqueue(new Vector3(-1 * m_thrust * speed, 0, 0));
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            movementVectorQueue.Enqueue(new Vector3(1 * m_thrust * speed, 0, 0));
-        }
+        float horizontal = Input.GetAxis("Horizontal"); // A/D or Left/Right keys
+        float vertical = Input.GetAxis("Vertical"); // W/S or Up/Down keys
+        movementVector = new Vector3(horizontal, 0, vertical);
     }
 
     private void CheckFinish()

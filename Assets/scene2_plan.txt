@@ -1,8 +1,10 @@
--jump
 -spikes that kill
 -trampolines
 -slow terrain
 -boosts
+-moving terrain
+-toggled doors
+-glasses
 
 playercontroller
 	movement revamp
