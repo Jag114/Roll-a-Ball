@@ -6,35 +6,23 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    private bool finished = false;
-    private int score = 0;
-    private Rigidbody rb = null;
+    private Rigidbody rb = default;
     private Vector3 movementVector = Vector3.zero;
+    private GameObject game_master = default;
 
     public int score_threshold = 0;
     public float speed = 1f;
     public float drag = 0f;
 
-    //UI
-    //public Text score_text;
-    //private float game_time;
-    //public Text finish_text;
-    //public Text time_text;
-
-    //UI - update
-    //game_time += Time.deltaTime;
-    //time_text.text = "time: " + game_time;
-
-
     void Start()
     {
         Time.timeScale = 1;
         rb = GetComponent<Rigidbody>();
+        game_master = GetComponent<GameObject>();
     }
 
     void Update()
     {
-        CheckFinish();
         GetInput();
     }
 
@@ -50,24 +38,11 @@ public class PlayerController : MonoBehaviour
         movementVector = new Vector3(horizontal, 0, vertical);
     }
 
-    private void CheckFinish()
+    private void OnCollisionEnter(Collision collision)
     {
-        if (finished)
+        if (collision.gameObject.tag == "Finish")
         {
-            Time.timeScale = 0;
-            if (Input.GetKey(KeyCode.Space))
-            {
-                int index = SceneManager.GetActiveScene().buildIndex;
-                SceneManager.LoadScene(++index, LoadSceneMode.Single);
-            }
-        }
-    }
-
-    public void IncrementScore()
-    {
-        if(score <= score_threshold)
-        {
-            score += 1;
+            game_master.gameObject.GetComponent<GameController>().finished = true;
         }
     }
 }

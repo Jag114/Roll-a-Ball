@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class CollectibleController : MonoBehaviour
 {
@@ -7,6 +6,7 @@ public class CollectibleController : MonoBehaviour
     private int direction;
     private float timeToBop;
     private AudioSource sound;
+    private GameObject game_master;
 
     // Start is called before the first frame update
     void Start()
@@ -34,10 +34,12 @@ public class CollectibleController : MonoBehaviour
 
     private void OnTriggerEnter(Collider otherObject)
     {
-        otherObject.gameObject.GetComponent<PlayerController>().IncrementScore();
-        sound.Play();
-
-        Respawn(otherObject.gameObject.transform.position);
+        if(otherObject.gameObject.tag == "Player")
+        {
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().IncrementScore();
+            sound.Play();
+            Respawn(otherObject.gameObject.transform.position);
+        }
     }
 
     private void Respawn(Vector3 ballPos)
@@ -54,7 +56,6 @@ public class CollectibleController : MonoBehaviour
         }
         Vector3 vector3 = new Vector3(x, 0.9f, z);
         Instantiate(gameObject, vector3, Quaternion.identity);
-
         gameObject.SetActive(false);
     }
 
