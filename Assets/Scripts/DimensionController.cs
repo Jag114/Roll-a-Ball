@@ -1,3 +1,5 @@
+using System;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.PostProcessing;
@@ -12,6 +14,8 @@ public class DimensionController : MonoBehaviour
 
     private GameObject[] allObjects;
     private Dimension currDimension = Dimension.Light;
+    private ColorGrading colorGrading;
+    private float inputDelay = 0.5f;
 
     public Material LightSkybox;
     public Material DarkSkybox;
@@ -19,24 +23,49 @@ public class DimensionController : MonoBehaviour
     void Start()
     {
         allObjects = FindObjectsByType<GameObject>(FindObjectsSortMode.None);
+
+        PostProcessVolume[] volume = FindObjectsByType<PostProcessVolume>(FindObjectsSortMode.None);
+        foreach(var e in volume)
+        {
+            if (e != null && e.profile != null)
+            {
+                if (e.profile.TryGetSettings(out colorGrading))
+                {
+                    Debug.Log("Color Grading found!");
+                }
+                else
+                {
+                    Debug.LogWarning("Color Grading effect is not enabled in the volume profile.");
+                }
+            }
+        }
+        
         RenderDimension((int)currDimension);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.Alpha1))
+        if (inputDelay <= 0)
         {
-            currDimension = Dimension.Dark;
-            RenderDimension(6);
-            RenderSettings.skybox = DarkSkybox;
+            if (Input.GetKey(KeyCode.Alpha1))
+            {
+                currDimension = Dimension.Dark;
+                RenderDimension(6);
+                RenderSettings.skybox = DarkSkybox;
 
+            }
+            if (Input.GetKey(KeyCode.Alpha2))
+            {
+                currDimension = Dimension.Light;
+                RenderDimension(7);
+                RenderSettings.skybox = LightSkybox;
+            }
+            inputDelay = 0.5f;
         }
-        if (Input.GetKey(KeyCode.Alpha2))
+        else
         {
-            currDimension = Dimension.Light;
-            RenderDimension(7);
-            RenderSettings.skybox = LightSkybox;
+            inputDelay -= Time.deltaTime;
         }
     }
 
@@ -56,5 +85,36 @@ public class DimensionController : MonoBehaviour
                 }
             }
         }
+
+        InvertGradingCurves();
+    }
+
+    public void InvertGradingCurves()
+    {
+        print("Begin inversion");
+        colorGrading.masterCurve.overrideState = true;
+        print(colorGrading.masterCurve);//SplineParameter
+        print(colorGrading.masterCurve.value);//Spline
+        print(colorGrading.masterCurve.value.curve[1]);//Keyframe
+        print(colorGrading.masterCurve.value.curve.length);//int
+        for(int i = 0; i < colorGrading.masterCurve.value.curve.length; ++i)
+        {
+            print(colorGrading.masterCurve.value.curve[i].value);//float
+        }
+        Keyframe[] keyFrames = new Keyframe[2];
+        if(currDimension == Dimension.Dark)
+        {
+            keyFrames[0] = new Keyframe(0, 1);
+            keyFrames[1] = new Keyframe(1, 0);
+        }
+        else
+        {
+            keyFrames[0] = new Keyframe(0, 0);
+            keyFrames[1] = new Keyframe(1, 1);
+        }
+        
+        colorGrading.masterCurve.value = new Spline(new AnimationCurve(keyFrames), 0, false, new Vector2(0,255));
+        print("End inversion");
     }
 }
+
