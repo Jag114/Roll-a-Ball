@@ -26,7 +26,10 @@ public class GameController : MonoBehaviour
     {
         CheckFinish();
         game_time += Time.deltaTime;
-        time_text.text = "Time: " + game_time;
+        if(time_text != null)
+        {
+            time_text.text = "Time: " + game_time;
+        }
     }
 
     private void CheckFinish()
