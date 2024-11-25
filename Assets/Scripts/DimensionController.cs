@@ -91,16 +91,16 @@ public class DimensionController : MonoBehaviour
 
     public void InvertGradingCurves()
     {
-        print("Begin inversion");
+        //print("Begin inversion");
         colorGrading.masterCurve.overrideState = true;
-        print(colorGrading.masterCurve);//SplineParameter
-        print(colorGrading.masterCurve.value);//Spline
-        print(colorGrading.masterCurve.value.curve[1]);//Keyframe
-        print(colorGrading.masterCurve.value.curve.length);//int
-        for(int i = 0; i < colorGrading.masterCurve.value.curve.length; ++i)
-        {
-            print(colorGrading.masterCurve.value.curve[i].value);//float
-        }
+        //print(colorGrading.masterCurve);//SplineParameter
+        //print(colorGrading.masterCurve.value);//Spline
+        //print(colorGrading.masterCurve.value.curve[1]);//Keyframe
+        //print(colorGrading.masterCurve.value.curve.length);//int
+        //for(int i = 0; i < colorGrading.masterCurve.value.curve.length; ++i)
+        //{
+        //    print(colorGrading.masterCurve.value.curve[i].value);//float
+        //}
         Keyframe[] keyFrames = new Keyframe[2];
         if(currDimension == Dimension.Dark)
         {
@@ -114,7 +114,7 @@ public class DimensionController : MonoBehaviour
         }
         
         colorGrading.masterCurve.value = new Spline(new AnimationCurve(keyFrames), 0, false, new Vector2(0,255));
-        print("End inversion");
+        //print("End inversion");
     }
 }
 
