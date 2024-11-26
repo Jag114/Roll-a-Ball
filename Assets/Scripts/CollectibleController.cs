@@ -36,8 +36,9 @@ public class CollectibleController : MonoBehaviour
     {
         if(otherObject.gameObject.tag == "Player")
         {
-            GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().IncrementScore();
-            sound.Play();
+            //FIX NULL CHECKS?
+            GameObject.FindGameObjectWithTag("GameController")?.GetComponent<GameController>().IncrementScore();
+            sound?.Play();
             Respawn(otherObject.gameObject.transform.position);
         }
     }

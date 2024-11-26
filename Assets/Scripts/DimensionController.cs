@@ -15,13 +15,15 @@ public class DimensionController : MonoBehaviour
     private GameObject[] allObjects;
     private Dimension currDimension = Dimension.Light;
     private ColorGrading colorGrading;
-    private float inputDelay = 0.5f;
+    private float inputDelay;
 
     public Material LightSkybox;
     public Material DarkSkybox;
 
     void Start()
     {
+        inputDelay = 0;
+
         allObjects = FindObjectsByType<GameObject>(FindObjectsSortMode.None);
 
         PostProcessVolume[] volume = FindObjectsByType<PostProcessVolume>(FindObjectsSortMode.None);
@@ -46,27 +48,25 @@ public class DimensionController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (inputDelay <= 0)
+        if (inputDelay > .2f)
         {
-            if (Input.GetKey(KeyCode.Alpha1))
+            if (Input.GetKey(KeyCode.E))
             {
                 currDimension = Dimension.Dark;
                 RenderDimension(6);
                 RenderSettings.skybox = DarkSkybox;
 
             }
-            if (Input.GetKey(KeyCode.Alpha2))
+            if (Input.GetKey(KeyCode.Q))
             {
                 currDimension = Dimension.Light;
                 RenderDimension(7);
                 RenderSettings.skybox = LightSkybox;
             }
-            inputDelay = 0.5f;
+            inputDelay = 0;
         }
-        else
-        {
-            inputDelay -= Time.deltaTime;
-        }
+        
+        inputDelay += Time.deltaTime;
     }
 
     void RenderDimension(int dimensionID)
