@@ -381,18 +381,72 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 958852889}
     - target: {fileID: 6953771800279303111, guid: 4361e8026821e374ba7c787d0381a6af, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6953771800279303111, guid: 4361e8026821e374ba7c787d0381a6af, type: 3}
       propertyPath: finish_text
       value: 
       objectReference: {fileID: 940735792}
     - target: {fileID: 6953771800279303111, guid: 4361e8026821e374ba7c787d0381a6af, type: 3}
+      propertyPath: musicController
+      value: 
+      objectReference: {fileID: 555880341}
+    - target: {fileID: 6953771800279303111, guid: 4361e8026821e374ba7c787d0381a6af, type: 3}
       propertyPath: score_threshold
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4361e8026821e374ba7c787d0381a6af, type: 3}
+--- !u!1 &555880338
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 555880340}
+  - component: {fileID: 555880341}
+  m_Layer: 0
+  m_Name: MusicController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &555880340
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 555880338}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.9103831, y: 3.2059603, z: 3.819643}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &555880341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 555880338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb0fcef429d6482469df331cc6b352c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: m1
+  audioSource: {fileID: 1265600497}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1088,7 +1142,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 0ed3818a87215f14289c4fefed69d98c, type: 3}
   m_Resource: {fileID: 8300000, guid: 0ed3818a87215f14289c4fefed69d98c, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -2385,5 +2439,6 @@ SceneRoots:
   - {fileID: 196560893}
   - {fileID: 2119452604}
   - {fileID: 1265600498}
-  - {fileID: 512525747}
   - {fileID: 1489532549}
+  - {fileID: 555880340}
+  - {fileID: 512525747}

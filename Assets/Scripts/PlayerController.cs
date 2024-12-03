@@ -8,7 +8,8 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody rb = default;
     private Vector3 movementVector = Vector3.zero;
-    private GameObject game_master = default;
+    private GameObject gameMaster = default;
+    private Item[] items;
 
     public int score_threshold = 0;
     public float speed = 1f;
@@ -18,7 +19,9 @@ public class PlayerController : MonoBehaviour
     {
         Time.timeScale = 1;
         rb = GetComponent<Rigidbody>();
-        game_master = GetComponent<GameObject>();
+        gameMaster = GetComponent<GameObject>();
+        items = new Item[4];
+        items[0] = new Item(0);
     }
 
     void Update()
@@ -42,7 +45,19 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Finish")
         {
-            game_master.gameObject.GetComponent<GameController>().finished = true;
+            gameMaster.gameObject.GetComponent<GameController>().finished = true;
+        }
+
+        if (collision.gameObject.tag == "Door")
+        {
+            if (collision.gameObject.GetComponent<Item>().OpenDoor(items[0]))
+            {
+                collision.gameObject.SetActive(false);
+            }
+            else
+            {
+                print("BAD KEY");
+            }
         }
     }
 }

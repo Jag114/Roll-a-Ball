@@ -1,34 +1,61 @@
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-    public bool finished = false;
     private int score = 0;
-    public int score_threshold = 5;
+    private float gameTime;
+    private static GameController gameControllerInstance = null;
 
-    private float game_time;
+    public MusicController musicController = null;
+    public static GameController Instance { 
+        get {
+            if(gameControllerInstance == null)
+            {
+                gameControllerInstance = new GameController();
+            }
+            return gameControllerInstance;
+        } 
+    }
+    public bool finished = false;
+    public int score_threshold = 5;
     public Text score_text;
     public Text finish_text;
     public Text time_text;
     public GameObject level_select_panel;
     public GameObject options_panel;
-    private GameController game_controller;
+
+    private void Awake()
+    {
+        if(gameControllerInstance == null)
+        {
+            gameControllerInstance = this;
+            if(musicController == null)
+            {
+                musicController = FindAnyObjectByType<MusicController>();
+            }
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
         if (score_threshold == 0) score_text.text = "";    
     }
 
-    // Update is called once per frame
     void Update()
     {
         CheckFinish();
-        game_time += Time.deltaTime;
+        gameTime += Time.deltaTime;
         if(time_text != null)
         {
-            time_text.text = "Time: " + game_time;
+            time_text.text = "Time: " + gameTime;
         }
     }
 
@@ -42,7 +69,10 @@ public class GameController : MonoBehaviour
         if (finished)
         {
             Time.timeScale = 0;
-            finish_text.gameObject.SetActive(true);
+            if(finish_text != null)
+            {
+                finish_text.gameObject.SetActive(true);
+            }
             if (Input.GetKey(KeyCode.Space))
             {
                 int index = SceneManager.GetActiveScene().buildIndex;

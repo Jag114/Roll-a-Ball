@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Activatable
+  - Door
   layers:
   - Default
   - TransparentFX

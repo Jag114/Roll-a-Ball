@@ -1346,10 +1346,10 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 0ed3818a87215f14289c4fefed69d98c, type: 3}
   m_Resource: {fileID: 8300000, guid: 0ed3818a87215f14289c4fefed69d98c, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -2552,6 +2552,52 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1 &762102163
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 762102165}
+  - component: {fileID: 762102164}
+  m_Layer: 0
+  m_Name: MusicController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &762102164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 762102163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb0fcef429d6482469df331cc6b352c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: m2
+  audioSource: {fileID: 452689342}
+--- !u!4 &762102165
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 762102163}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.9103831, y: 3.2059603, z: 3.819643}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &931445083
 GameObject:
   m_ObjectHideFlags: 0
@@ -6989,9 +7035,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1480646020}
     - target: {fileID: 6953771800279303111, guid: 4361e8026821e374ba7c787d0381a6af, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 452689342}
+    - target: {fileID: 6953771800279303111, guid: 4361e8026821e374ba7c787d0381a6af, type: 3}
       propertyPath: finish_text
       value: 
       objectReference: {fileID: 1376718624}
+    - target: {fileID: 6953771800279303111, guid: 4361e8026821e374ba7c787d0381a6af, type: 3}
+      propertyPath: musicController
+      value: 
+      objectReference: {fileID: 762102164}
     - target: {fileID: 6953771800279303111, guid: 4361e8026821e374ba7c787d0381a6af, type: 3}
       propertyPath: score_threshold
       value: 0
@@ -6999,28 +7053,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3837576498521939828, guid: 4361e8026821e374ba7c787d0381a6af, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7286009216773301217}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4361e8026821e374ba7c787d0381a6af, type: 3}
---- !u!1 &7286009216773301216 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3837576498521939828, guid: 4361e8026821e374ba7c787d0381a6af, type: 3}
-  m_PrefabInstance: {fileID: 7286009216773301215}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7286009216773301217
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7286009216773301216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e50e7380ee7519b479a346963794c98e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &7650979152483809455
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7102,8 +7136,9 @@ SceneRoots:
   - {fileID: 679344561}
   - {fileID: 1991220548}
   - {fileID: 1085987433}
-  - {fileID: 7286009216773301215}
   - {fileID: 2004497509}
   - {fileID: 451686806}
   - {fileID: 1675199227}
   - {fileID: 2930382527313182079}
+  - {fileID: 762102165}
+  - {fileID: 7286009216773301215}
