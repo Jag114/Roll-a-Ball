@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Item : MonoBehaviour
+public class OldItem : MonoBehaviour
 {
     public enum Dimension
     {
@@ -10,7 +10,7 @@ public class Item : MonoBehaviour
     public Dimension dimension = Dimension.Dark;
     public int doorID;
 
-    public Item(int doorID)
+    public OldItem(int doorID)
     {
         this.doorID = doorID;
     }
@@ -27,7 +27,7 @@ public class Item : MonoBehaviour
         }
     }
 
-    public bool OpenDoor(Item door)
+    public bool OpenDoor(OldItem door)
     {
         if(door.doorID == doorID)
         {

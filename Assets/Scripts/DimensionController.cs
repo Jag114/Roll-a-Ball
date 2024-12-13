@@ -54,14 +54,14 @@ public class DimensionController : MonoBehaviour
             {
                 currDimension = Dimension.Dark;
                 RenderDimension(6);
-                RenderSettings.skybox = DarkSkybox;
+                //RenderSettings.skybox = DarkSkybox;
 
             }
             if (Input.GetKey(KeyCode.Q))
             {
                 currDimension = Dimension.Light;
                 RenderDimension(7);
-                RenderSettings.skybox = LightSkybox;
+                //RenderSettings.skybox = LightSkybox;
             }
             inputDelay = 0;
         }

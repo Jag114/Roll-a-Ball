@@ -14,7 +14,7 @@ public class CollectibleController : MonoBehaviour
         m_rb = GetComponent<Rigidbody>();
         direction = 1;
         timeToBop = 0;
-        sound = GameObject.Find("SoundEffect").GetComponent<AudioSource>();
+        sound = GameObject.Find("SoundEffect")?.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
