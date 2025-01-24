@@ -1,0 +1,4 @@
+Q/E - change dimensions (lvl 3)
+Space - go back in time (lvl 3) && go to next lvl when finished
+ESC - main menu
+W/A/S/D - movement
