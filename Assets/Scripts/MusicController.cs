@@ -8,16 +8,11 @@ public class MusicController : MonoBehaviour
     public string name;
     public AudioSource audioSource = null;
 
-    public static MusicController Instance { 
-        get 
-        {
-            if (instance == null)
-            {
-                instance = new MusicController();
-                instance.name = "Controller " + ++nr;
-            }
-            return instance; 
-        } 
+    public static MusicController Instance
+    {
+        get{
+            return instance;
+        }
     }
 
     private void Awake()
@@ -27,14 +22,19 @@ public class MusicController : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
-            if(audioSource == null)
+            if (audioSource == null)
             {
-                audioSource = FindFirstObjectByType<AudioSource>().GetComponent<AudioSource>();
+                audioSource = GameObject.FindGameObjectWithTag("Sound").GetComponent<AudioSource>();
+            }
+            if (audioSource.isPlaying == false)
+            {
+                audioSource.Play();
             }
         }
         else
         {
             Destroy(gameObject);
         }
+
     }
 }

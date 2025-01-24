@@ -2,19 +2,30 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public GameObject player;
-    Vector3 offset;
+    public Transform player;
+    public float distance = 5.0f;
+    public float rotationSpeed = 5.0f;
 
-    // Start is called before the first frame update
-    void Start()
+    private Vector3 offset = Vector3.zero;
+    private Vector2 rotation = Vector2.zero;
+
+    private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        offset = player.transform.position - transform.position;
+        offset = new Vector3(0, 2.0f, -distance);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void LateUpdate()
     {
-        transform.position = player.transform.position - offset;
+        if (player == null) return;
+
+        // Handle rotation based on mouse movement
+        rotation.x += Input.GetAxis("Mouse X") * rotationSpeed;
+        rotation.y -= Input.GetAxis("Mouse Y") * rotationSpeed;
+        rotation.y = Mathf.Clamp(rotation.y, -20f, 60f);
+
+        Quaternion rotationQuaternion = Quaternion.Euler(rotation.y, rotation.x, 0);
+
+        transform.position = player.position + rotationQuaternion * offset;
+        transform.LookAt(player.position + Vector3.up);
     }
 }

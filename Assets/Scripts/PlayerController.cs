@@ -1,32 +1,35 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody rb = default;
     private Vector3 movementVector = Vector3.zero;
-    private GameObject gameMaster = default;
-    private OldItem[] items;
+    private List<Item> items = new List<Item>();
+    private bool reset = false;
 
-    public int score_threshold = 0;
+    public GameObject gameMaster = default;
+    public int scoreThreshold = 0;
     public float speed = 1f;
     public float drag = 0f;
+    public Camera camera;
 
     void Start()
     {
         Time.timeScale = 1;
         rb = GetComponent<Rigidbody>();
-        gameMaster = GetComponent<GameObject>();
-        items = new OldItem[4];
-        items[0] = new OldItem(0);
     }
 
     void Update()
     {
         GetInput();
+        if(reset)
+        {
+            GameController.Instance.Teleport();
+            reset = false;
+        }
     }
 
     private void FixedUpdate()
@@ -38,21 +41,43 @@ public class PlayerController : MonoBehaviour
     {
         float horizontal = Input.GetAxis("Horizontal"); // A/D or Left/Right keys
         float vertical = Input.GetAxis("Vertical"); // W/S or Up/Down keys
-        movementVector = new Vector3(horizontal, 0, vertical);
+
+        Vector3 forward = camera.transform.forward;
+        Vector3 right = camera.transform.right;
+        forward.y = 0f;
+        right.y = 0f;
+
+        movementVector = (forward * vertical + right * horizontal).normalized;
+
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            reset = true;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Finish")
         {
-            gameMaster.gameObject.GetComponent<GameController>().finished = true;
+            
+            GameController.Instance.finished = true;
         }
+    }
 
-        if (collision.gameObject.tag == "Door")
+    public void AddToInventory(Item newItem)
+    {
+        print("ADDED TO EQ");
+        items.Add(newItem);
+    }
+
+    public void OpenDoor(GameObject door, int id)
+    {
+        foreach (var item in items)
         {
-            if (collision.gameObject.GetComponent<OldItem>().OpenDoor(items[0]))
+            if (item.doorID == id)
             {
-                collision.gameObject.SetActive(false);
+                door.GetComponent<Animation>().Play();
+                items.Remove(item);
             }
             else
             {

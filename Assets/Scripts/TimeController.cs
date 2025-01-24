@@ -20,7 +20,7 @@ public class TimeController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (Input.GetKey(KeyCode.Space) && timeDelay > 1)
         {
@@ -31,11 +31,13 @@ public class TimeController : MonoBehaviour
         {
             //print("adding position");
             Time.timeScale = 1;
-            if(positionHistory.Count > 300)
+            if(positionHistory?.Count > 150)
             {
-                positionHistory.RemoveFirst();
+                positionHistory?.RemoveFirst();
             }
-            positionHistory.AddLast(player.transform.position);
+
+            if(player != null)
+                positionHistory?.AddLast(player.transform.position);
         }
         else if(positionHistory.Count > 0 && timeFlow == -1)
         {

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class OLDFinishController : MonoBehaviour
 {
-    public Text finish_text;
+    public Text finishText;
     private bool finished = false;
 
     private void Update()
@@ -22,7 +22,7 @@ public class OLDFinishController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Time.timeScale = 0;
-        finish_text.gameObject.SetActive(true);
+        finishText?.gameObject.SetActive(true);
         finished = true;
     }
 

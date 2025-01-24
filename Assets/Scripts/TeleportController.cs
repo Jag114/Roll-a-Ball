@@ -1,14 +1,24 @@
+using System;
 using UnityEngine;
 
 public class TeleportController : MonoBehaviour
 {
-    public float coordX = 0;
-    public float coordY = 0;
-    public float coordZ = 0;
-
-    private void OnCollisionEnter(Collision collision)
+    private void Start()
     {
-        collision.rigidbody.transform.position = new Vector3(coordX, coordY, coordZ);
-        collision.rigidbody.linearVelocity = new Vector3(0, 0, 0);
+        GameController.Instance.OnTeleportRequest += HandleTeleport;
+    }
+
+    private void OnDestroy()
+    {
+        if (GameController.Instance != null)
+        {
+            GameController.Instance.OnTeleportRequest -= HandleTeleport;
+        }
+    }
+
+    private void HandleTeleport(Vector3 targetPosition)
+    {
+        print("Handle tp");
+        GameObject.FindGameObjectWithTag("Player").transform.position = targetPosition;
     }
 }

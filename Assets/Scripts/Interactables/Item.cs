@@ -10,14 +10,23 @@ public class Item : MonoBehaviour, IInteractable
     public Dimension dimension = Dimension.Dark;
     public int doorID;
 
+    [SerializeField]
+    private GameObject door;
+
     public void Interact(Collider player)
     {
-        player.GetComponent<Player>()?.AddToInventory(this);
+        player.GetComponent<PlayerController>()?.AddToInventory(this);
+        gameObject.SetActive(false);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider player)
     {
-        Interact(other);
+        Interact(player);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        collision.gameObject.GetComponent<PlayerController>().OpenDoor(door, doorID);
     }
 
 }

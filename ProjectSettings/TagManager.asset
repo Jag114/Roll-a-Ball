@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Activatable
   - Door
+  - Sound
+  - GM
   layers:
   - Default
   - TransparentFX

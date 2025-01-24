@@ -2,16 +2,13 @@ using UnityEngine;
 
 public class CollectibleController : MonoBehaviour
 {
-    private Rigidbody m_rb;
     private int direction;
     private float timeToBop;
     private AudioSource sound;
-    private GameObject game_master;
 
     // Start is called before the first frame update
     void Start()
     {
-        m_rb = GetComponent<Rigidbody>();
         direction = 1;
         timeToBop = 0;
         sound = GameObject.Find("SoundEffect")?.GetComponent<AudioSource>();
@@ -36,8 +33,7 @@ public class CollectibleController : MonoBehaviour
     {
         if(otherObject.gameObject.tag == "Player")
         {
-            //FIX NULL CHECKS?
-            GameObject.FindGameObjectWithTag("GameController")?.GetComponent<GameController>().IncrementScore();
+            GameController.Instance.IncrementScore(1);
             sound?.Play();
             Respawn(otherObject.gameObject.transform.position);
         }
@@ -57,7 +53,8 @@ public class CollectibleController : MonoBehaviour
         }
         Vector3 vector3 = new Vector3(x, 0.9f, z);
         Instantiate(gameObject, vector3, Quaternion.identity);
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 
     void UpAndDown()
